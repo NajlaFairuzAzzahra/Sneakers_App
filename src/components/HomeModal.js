@@ -1,4 +1,4 @@
-// HomeModal.js
+// HomeModal
 import React from 'react';
 import {
   View,
