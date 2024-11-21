@@ -1,11 +1,10 @@
-// src/navigation/BottomTabs.js
 import React from 'react';
 import { StyleSheet, Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import Home from '../screens/Home';
-import Explore from '../screens/Explore';
+import Size from '../screens/Size'; 
 import Profile from '../screens/Profile';
 
 const Tab = createBottomTabNavigator();
@@ -17,7 +16,6 @@ const BottomTabs = () => {
         headerShown: false,
         tabBarShowLabel: true,
         tabBarStyle: styles.tabBar,
-        tabBarActiveTintColor: '#FF385C',
         tabBarInactiveTintColor: '#666',
         tabBarLabelStyle: styles.tabBarLabel,
       }}
@@ -29,17 +27,19 @@ const BottomTabs = () => {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
-          tabBarLabel: 'Beranda'
+          tabBarLabel: 'Home',
+          tabBarActiveTintColor: '#FF0000',
         }}
       />
       <Tab.Screen 
-        name="Explore" 
-        component={Explore}
+        name="Size" 
+        component={Size}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="compass-outline" size={size} color={color} />
+            <Ionicons name="resize-outline" size={size} color={color} />
           ),
-          tabBarLabel: 'Jelajah'
+          tabBarLabel: 'Size',
+          tabBarActiveTintColor: '#00FF00',
         }}
       />
       <Tab.Screen 
@@ -49,7 +49,8 @@ const BottomTabs = () => {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-outline" size={size} color={color} />
           ),
-          tabBarLabel: 'Profil'
+          tabBarLabel: 'Profile',
+          tabBarActiveTintColor: '#0000FF',
         }}
       />
     </Tab.Navigator>
@@ -59,7 +60,7 @@ const BottomTabs = () => {
 const styles = StyleSheet.create({
   tabBar: {
     position: 'absolute',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff', 
     borderTopWidth: 0,
     elevation: 0,
     height: Platform.OS === 'ios' ? 85 : 65,
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
       },
       android: {
         elevation: 8,
-        borderTopLeftRadius: 20,
+        borderTopLeftRadius: 20,  
         borderTopRightRadius: 20,
       },
     }),

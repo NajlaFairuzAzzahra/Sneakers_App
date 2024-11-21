@@ -24,8 +24,8 @@ const Login = ({ navigation }) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
 
   const VALID_CREDENTIALS = {
-    email: 'kiki@gmail.com',
-    password: 'kikipoiu'
+    email: 'najla@gmail.com',
+    password: 'najla123'
   };
 
   const handleLogin = () => {

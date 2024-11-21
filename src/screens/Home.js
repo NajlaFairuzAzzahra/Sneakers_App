@@ -1,4 +1,3 @@
-// Home.js
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -73,6 +72,19 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [selectedSneaker, setSelectedSneaker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [favorites, setFavorites] = useState(new Set());
+
+  const toggleFavorite = (sneakerId) => {
+    setFavorites(prev => {
+      const newFavorites = new Set(prev);
+      if (newFavorites.has(sneakerId)) {
+        newFavorites.delete(sneakerId);
+      } else {
+        newFavorites.add(sneakerId);
+      }
+      return newFavorites;
+    });
+  };
 
   const fetchSneakers = async (pageNum = 1, isRefreshing = false) => {
     try {
@@ -120,12 +132,20 @@ const Home = () => {
           resizeMode="cover"
         />
         <TouchableOpacity 
-          style={styles.favoriteButton}
+          style={[
+            styles.favoriteButton,
+            favorites.has(item.id) && styles.favoriteButtonActive
+          ]}
           onPress={(e) => {
-            e.stopPropagation(); 
+            e.stopPropagation();
+            toggleFavorite(item.id);
           }}
         >
-          <Ionicons name="heart-outline" size={20} color="#FF385C" />
+          <Ionicons 
+            name={favorites.has(item.id) ? "heart" : "heart-outline"} 
+            size={20} 
+            color={favorites.has(item.id) ? "#FF385C" : "#FF385C"} 
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.infoContainer}>
@@ -323,6 +343,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
+  },
+  favoriteButtonActive: {
+    backgroundColor: '#fff',
+    transform: [{ scale: 1.1 }],
   },
   infoContainer: {
     padding: 12,

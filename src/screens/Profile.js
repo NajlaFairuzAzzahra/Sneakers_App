@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Linking,
   Platform,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -84,6 +85,30 @@ const Profile = ({ navigation }) => {
     },
   ];
 
+  const handleLogout = () => {
+    Alert.alert(
+      "Logout",
+      "Are you sure you want to logout?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "Logout",
+          onPress: () => {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Login' }],
+            });
+          },
+          style: "destructive"
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+
   const handleMenuPress = (item) => {
     if (item.clickable && item.onPress) {
       item.onPress();
@@ -94,7 +119,6 @@ const Profile = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
 
-      {/* Modern Header */}
       <View style={styles.header}>
         <View style={styles.headerContent}>
           <TouchableOpacity 
@@ -114,7 +138,6 @@ const Profile = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         style={styles.content}
       >
-        {/* App Info Card */}
         <View style={styles.appCard}>
           <View style={styles.logoContainer}>
             <Image 
@@ -129,7 +152,6 @@ const Profile = ({ navigation }) => {
           </Text>
         </View>
 
-        {/* Menu Items */}
         <View style={styles.menuContainer}>
           {menuItems.map((item) => (
             <TouchableOpacity
@@ -156,7 +178,25 @@ const Profile = ({ navigation }) => {
           ))}
         </View>
 
-        {/* Footer */}
+        <View style={styles.logoutContainer}>
+          <TouchableOpacity
+            style={styles.logoutItem}
+            onPress={handleLogout}
+          >
+            <View style={styles.menuIcon}>
+              <Ionicons 
+                name="log-out-outline" 
+                size={24} 
+                color="#FF385C"
+              />
+            </View>
+            <View style={styles.menuContent}>
+              <Text style={styles.logoutTitle}>Logout</Text>
+              <Text style={styles.logoutSubtitle}>Sign out from your account</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.footer}>
           <Text style={styles.footerText}>
             Made with ❤️ by {appInfo.developer}
@@ -287,6 +327,35 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   menuSubtitle: {
+    fontSize: 13,
+    color: '#666',
+  },
+  logoutContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    marginHorizontal: 20,
+    marginTop: 20,
+    marginBottom: 20,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 15,
+    elevation: 5,
+  },
+  logoutItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+  },
+  logoutTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FF385C',
+    marginBottom: 2,
+  },
+  logoutSubtitle: {
     fontSize: 13,
     color: '#666',
   },

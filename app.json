@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Batik_App",
-    "slug": "Batik_App",
+    "name": "sneakers_app",
+    "slug": "sneakers_app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
